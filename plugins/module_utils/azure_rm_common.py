@@ -185,8 +185,6 @@ AZURE_FAILED_STATE = "Failed"
 
 HAS_AZURE = True
 HAS_AZURE_EXC = None
-HAS_AZURE_CLI_CORE = True
-HAS_AZURE_CLI_CORE_EXC = None
 
 HAS_MSRESTAZURE = True
 HAS_MSRESTAZURE_EXC = None
@@ -221,7 +219,8 @@ try:
     from msrestazure.azure_active_directory import MSIAuthentication
     from msrestazure.tools import parse_resource_id, resource_id, is_valid_resource_id
     from msrestazure import azure_cloud
-    from azure.common.credentials import ServicePrincipalCredentials, UserPassCredentials
+    from azure.common.credentials import ServicePrincipalCredentials, UserPassCredentials, get_cli_profile
+    from azure.common.cloud import get_cli_active_cloud
     from azure.mgmt.network import NetworkManagementClient
     from azure.mgmt.resource.resources import ResourceManagementClient
     from azure.mgmt.resource.subscriptions import SubscriptionClient
@@ -270,15 +269,6 @@ try:
     from urllib import (urlencode, quote_plus)
 except ImportError:
     from urllib.parse import (urlencode, quote_plus)
-
-try:
-    from azure.cli.core.util import CLIError
-    from azure.common.credentials import get_cli_profile
-    from azure.common.cloud import get_cli_active_cloud
-except ImportError:
-    HAS_AZURE_CLI_CORE = False
-    HAS_AZURE_CLI_CORE_EXC = None
-    CLIError = Exception
 
 
 def azure_id_to_dict(id):
@@ -1238,12 +1228,8 @@ class AzureRMAuth(object):
             adfs_authority_url=adfs_authority_url)
 
         if not self.credentials:
-            if HAS_AZURE_CLI_CORE:
-                self.fail("Failed to get credentials. Either pass as parameters, set environment variables, "
-                          "define a profile in ~/.azure/credentials, or log in with Azure CLI (`az login`).")
-            else:
-                self.fail("Failed to get credentials. Either pass as parameters, set environment variables, "
-                          "define a profile in ~/.azure/credentials, or install Azure CLI and log in (`az login`).")
+            self.fail("Failed to get credentials. Either pass as parameters, set environment variables, "
+                      "define a profile in ~/.azure/credentials, or log in with Azure CLI (`az login`).")
 
         # cert validation mode precedence: module-arg, credential profile, env, "validate"
         self._cert_validation_mode = cert_validation_mode or \
@@ -1423,14 +1409,11 @@ class AzureRMAuth(object):
             return self._get_msi_credentials(subscription_id=params.get('subscription_id'), client_id=params.get('client_id'))
 
         if auth_source == 'cli':
-            if not HAS_AZURE_CLI_CORE:
-                self.fail(msg=missing_required_lib('azure-cli', reason='for `cli` auth_source'),
-                          exception=HAS_AZURE_CLI_CORE_EXC)
             try:
                 self.log('Retrieving credentials from Azure CLI profile')
                 cli_credentials = self._get_azure_cli_credentials(subscription_id=params.get('subscription_id'))
                 return cli_credentials
-            except CLIError as err:
+            except Exception as err:
                 self.fail("Azure CLI profile cannot be loaded - {0}".format(err))
 
         if auth_source == 'env':
@@ -1468,11 +1451,10 @@ class AzureRMAuth(object):
             return default_credentials
 
         try:
-            if HAS_AZURE_CLI_CORE:
-                self.log('Retrieving credentials from AzureCLI profile')
+            self.log('Retrieving credentials from AzureCLI profile')
             cli_credentials = self._get_azure_cli_credentials(subscription_id=params.get('subscription_id'))
             return cli_credentials
-        except CLIError as ce:
+        except Exception as ce:
             self.log('Error getting AzureCLI profile credentials - {0}'.format(ce))
 
         return None

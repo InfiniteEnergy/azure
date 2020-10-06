@@ -142,8 +142,7 @@ class AzureRMMariaDbConfigurationInfo(AzureRMModuleBase):
 
         for key in self.module_arg_spec:
             setattr(self, key, kwargs[key])
-        self.mgmt_client = self.get_mgmt_svc_client(MariaDBManagementClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(MariaDBManagementClient)
 
         if self.name is not None:
             self.results['settings'] = self.get()

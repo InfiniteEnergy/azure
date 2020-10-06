@@ -171,8 +171,7 @@ class AzureRMGalleryImagesInfo(AzureRMModuleBase):
         for key in self.module_arg_spec:
             setattr(self, key, kwargs[key])
 
-        self.mgmt_client = self.get_mgmt_svc_client(GenericRestClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(GenericRestClient)
 
         if (self.resource_group is not None and
                 self.gallery_name is not None and

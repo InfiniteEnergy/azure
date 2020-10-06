@@ -368,8 +368,7 @@ class AzureRMVirtualMachine(AzureRMModuleBase):
 
         response = None
 
-        self.mgmt_client = self.get_mgmt_svc_client(DevTestLabsClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(DevTestLabsClient)
 
         old_response = self.get_virtualmachine()
 

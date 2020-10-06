@@ -170,8 +170,7 @@ class AzureRMRecoveryServicesVaultInfo(AzureRMModuleBaseExt):
         old_response = None
         response = None
 
-        self.mgmt_client = self.get_mgmt_svc_client(GenericRestClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(GenericRestClient)
 
         changed = True
         response = self.get_recovery_service_vault_info()

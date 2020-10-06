@@ -176,8 +176,7 @@ class AzureRMDtlEnvironmentInfo(AzureRMModuleBase):
 
         for key in self.module_arg_spec:
             setattr(self, key, kwargs[key])
-        self.mgmt_client = self.get_mgmt_svc_client(DevTestLabsClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(DevTestLabsClient)
 
         if self.name:
             self.results['environments'] = self.get()

@@ -220,7 +220,6 @@ class AzureRMRoleDefinition(AzureRMModuleBase):
 
         # get management client
         self._client = self.get_mgmt_svc_client(AuthorizationManagementClient,
-                                                base_url=self._cloud_environment.endpoints.resource_manager,
                                                 api_version="2018-01-01-preview")
 
         self.scope = self.build_scope()

@@ -140,8 +140,7 @@ class BackupAzureVMInfo(AzureRMModuleBaseExt):
 
         response = None
 
-        self.mgmt_client = self.get_mgmt_svc_client(GenericRestClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(GenericRestClient)
 
         response = self.get_recovery_point_info()
         self.results['response'] = response

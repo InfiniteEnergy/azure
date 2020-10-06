@@ -357,8 +357,7 @@ class AzureRMCosmosDBAccount(AzureRMModuleBase):
 
         response = None
 
-        self.mgmt_client = self.get_mgmt_svc_client(CosmosDB,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(CosmosDB)
 
         resource_group = self.get_resource_group(self.resource_group)
 

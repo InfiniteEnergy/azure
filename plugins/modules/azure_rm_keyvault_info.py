@@ -240,7 +240,6 @@ class AzureRMKeyVaultInfo(AzureRMModuleBase):
                 setattr(self, key, kwargs[key])
 
         self._client = self.get_mgmt_svc_client(KeyVaultManagementClient,
-                                                base_url=self._cloud_environment.endpoints.resource_manager,
                                                 api_version="2018-02-14")
 
         if self.name:

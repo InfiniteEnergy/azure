@@ -218,8 +218,7 @@ class AzureRMBatchAccount(AzureRMModuleBaseExt):
 
         response = None
 
-        self.mgmt_client = self.get_mgmt_svc_client(BatchManagementClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(BatchManagementClient)
 
         old_response = self.get_batchaccount()
 

@@ -951,7 +951,6 @@ class AzureRMModuleBase(object):
         self.log('Getting storage client...')
         if not self._storage_client:
             self._storage_client = self.get_mgmt_svc_client(StorageManagementClient,
-                                                            base_url=self._cloud_environment.endpoints.resource_manager,
                                                             api_version='2019-06-01')
         return self._storage_client
 
@@ -964,7 +963,6 @@ class AzureRMModuleBase(object):
         self.log('Getting network client')
         if not self._network_client:
             self._network_client = self.get_mgmt_svc_client(NetworkManagementClient,
-                                                            base_url=self._cloud_environment.endpoints.resource_manager,
                                                             api_version='2019-06-01')
         return self._network_client
 
@@ -978,7 +976,6 @@ class AzureRMModuleBase(object):
         self.log('Getting resource manager client')
         if not self._resource_client:
             self._resource_client = self.get_mgmt_svc_client(ResourceManagementClient,
-                                                             base_url=self._cloud_environment.endpoints.resource_manager,
                                                              api_version='2017-05-10')
         return self._resource_client
 
@@ -992,7 +989,6 @@ class AzureRMModuleBase(object):
         self.log('Getting compute client')
         if not self._compute_client:
             self._compute_client = self.get_mgmt_svc_client(ComputeManagementClient,
-                                                            base_url=self._cloud_environment.endpoints.resource_manager,
                                                             api_version='2019-07-01')
         return self._compute_client
 
@@ -1006,7 +1002,6 @@ class AzureRMModuleBase(object):
         self.log('Getting dns client')
         if not self._dns_client:
             self._dns_client = self.get_mgmt_svc_client(DnsManagementClient,
-                                                        base_url=self._cloud_environment.endpoints.resource_manager,
                                                         api_version='2018-05-01')
         return self._dns_client
 
@@ -1019,9 +1014,7 @@ class AzureRMModuleBase(object):
     def private_dns_client(self):
         self.log('Getting private dns client')
         if not self._private_dns_client:
-            self._private_dns_client = self.get_mgmt_svc_client(
-                PrivateDnsManagementClient,
-                base_url=self._cloud_environment.endpoints.resource_manager)
+            self._private_dns_client = self.get_mgmt_svc_client(PrivateDnsManagementClient)
         return self._private_dns_client
 
     @property
@@ -1034,7 +1027,6 @@ class AzureRMModuleBase(object):
         self.log('Getting web client')
         if not self._web_client:
             self._web_client = self.get_mgmt_svc_client(WebSiteManagementClient,
-                                                        base_url=self._cloud_environment.endpoints.resource_manager,
                                                         api_version='2018-02-01')
         return self._web_client
 
@@ -1043,7 +1035,6 @@ class AzureRMModuleBase(object):
         self.log('Getting container service client')
         if not self._containerservice_client:
             self._containerservice_client = self.get_mgmt_svc_client(ContainerServiceClient,
-                                                                     base_url=self._cloud_environment.endpoints.resource_manager,
                                                                      api_version='2017-07-01')
         return self._containerservice_client
 
@@ -1057,7 +1048,6 @@ class AzureRMModuleBase(object):
         self.log('Getting container service client')
         if not self._managedcluster_client:
             self._managedcluster_client = self.get_mgmt_svc_client(ContainerServiceClient,
-                                                                   base_url=self._cloud_environment.endpoints.resource_manager,
                                                                    api_version='2019-04-01')
         return self._managedcluster_client
 
@@ -1065,40 +1055,35 @@ class AzureRMModuleBase(object):
     def sql_client(self):
         self.log('Getting SQL client')
         if not self._sql_client:
-            self._sql_client = self.get_mgmt_svc_client(SqlManagementClient,
-                                                        base_url=self._cloud_environment.endpoints.resource_manager)
+            self._sql_client = self.get_mgmt_svc_client(SqlManagementClient)
         return self._sql_client
 
     @property
     def postgresql_client(self):
         self.log('Getting PostgreSQL client')
         if not self._postgresql_client:
-            self._postgresql_client = self.get_mgmt_svc_client(PostgreSQLManagementClient,
-                                                               base_url=self._cloud_environment.endpoints.resource_manager)
+            self._postgresql_client = self.get_mgmt_svc_client(PostgreSQLManagementClient)
         return self._postgresql_client
 
     @property
     def mysql_client(self):
         self.log('Getting MySQL client')
         if not self._mysql_client:
-            self._mysql_client = self.get_mgmt_svc_client(MySQLManagementClient,
-                                                          base_url=self._cloud_environment.endpoints.resource_manager)
+            self._mysql_client = self.get_mgmt_svc_client(MySQLManagementClient)
         return self._mysql_client
 
     @property
     def mariadb_client(self):
         self.log('Getting MariaDB client')
         if not self._mariadb_client:
-            self._mariadb_client = self.get_mgmt_svc_client(MariaDBManagementClient,
-                                                            base_url=self._cloud_environment.endpoints.resource_manager)
+            self._mariadb_client = self.get_mgmt_svc_client(MariaDBManagementClient)
         return self._mariadb_client
 
     @property
     def sql_client(self):
         self.log('Getting SQL client')
         if not self._sql_client:
-            self._sql_client = self.get_mgmt_svc_client(SqlManagementClient,
-                                                        base_url=self._cloud_environment.endpoints.resource_manager)
+            self._sql_client = self.get_mgmt_svc_client(SqlManagementClient)
         return self._sql_client
 
     @property
@@ -1106,7 +1091,6 @@ class AzureRMModuleBase(object):
         self.log('Getting container registry mgmt client')
         if not self._containerregistry_client:
             self._containerregistry_client = self.get_mgmt_svc_client(ContainerRegistryManagementClient,
-                                                                      base_url=self._cloud_environment.endpoints.resource_manager,
                                                                       api_version='2017-10-01')
 
         return self._containerregistry_client
@@ -1116,7 +1100,6 @@ class AzureRMModuleBase(object):
         self.log('Getting container instance mgmt client')
         if not self._containerinstance_client:
             self._containerinstance_client = self.get_mgmt_svc_client(ContainerInstanceManagementClient,
-                                                                      base_url=self._cloud_environment.endpoints.resource_manager,
                                                                       api_version='2018-06-01')
 
         return self._containerinstance_client
@@ -1125,32 +1108,28 @@ class AzureRMModuleBase(object):
     def marketplace_client(self):
         self.log('Getting marketplace agreement client')
         if not self._marketplace_client:
-            self._marketplace_client = self.get_mgmt_svc_client(MarketplaceOrderingAgreements,
-                                                                base_url=self._cloud_environment.endpoints.resource_manager)
+            self._marketplace_client = self.get_mgmt_svc_client(MarketplaceOrderingAgreements)
         return self._marketplace_client
 
     @property
     def traffic_manager_management_client(self):
         self.log('Getting traffic manager client')
         if not self._traffic_manager_management_client:
-            self._traffic_manager_management_client = self.get_mgmt_svc_client(TrafficManagerManagementClient,
-                                                                               base_url=self._cloud_environment.endpoints.resource_manager)
+            self._traffic_manager_management_client = self.get_mgmt_svc_client(TrafficManagerManagementClient)
         return self._traffic_manager_management_client
 
     @property
     def monitor_client(self):
         self.log('Getting monitor client')
         if not self._monitor_client:
-            self._monitor_client = self.get_mgmt_svc_client(MonitorManagementClient,
-                                                            base_url=self._cloud_environment.endpoints.resource_manager)
+            self._monitor_client = self.get_mgmt_svc_client(MonitorManagementClient)
         return self._monitor_client
 
     @property
     def log_analytics_client(self):
         self.log('Getting log analytics client')
         if not self._log_analytics_client:
-            self._log_analytics_client = self.get_mgmt_svc_client(LogAnalyticsManagementClient,
-                                                                  base_url=self._cloud_environment.endpoints.resource_manager)
+            self._log_analytics_client = self.get_mgmt_svc_client(LogAnalyticsManagementClient)
         return self._log_analytics_client
 
     @property
@@ -1162,8 +1141,7 @@ class AzureRMModuleBase(object):
     def servicebus_client(self):
         self.log('Getting servicebus client')
         if not self._servicebus_client:
-            self._servicebus_client = self.get_mgmt_svc_client(ServiceBusManagementClient,
-                                                               base_url=self._cloud_environment.endpoints.resource_manager)
+            self._servicebus_client = self.get_mgmt_svc_client(ServiceBusManagementClient)
         return self._servicebus_client
 
     @property
@@ -1174,8 +1152,7 @@ class AzureRMModuleBase(object):
     def automation_client(self):
         self.log('Getting automation client')
         if not self._automation_client:
-            self._automation_client = self.get_mgmt_svc_client(AutomationClient,
-                                                               base_url=self._cloud_environment.endpoints.resource_manager)
+            self._automation_client = self.get_mgmt_svc_client(AutomationClient)
         return self._automation_client
 
     @property
@@ -1186,8 +1163,7 @@ class AzureRMModuleBase(object):
     def IoThub_client(self):
         self.log('Getting iothub client')
         if not self._IoThub_client:
-            self._IoThub_client = self.get_mgmt_svc_client(IotHubClient,
-                                                           base_url=self._cloud_environment.endpoints.resource_manager)
+            self._IoThub_client = self.get_mgmt_svc_client(IotHubClient)
         return self._IoThub_client
 
     @property
@@ -1198,8 +1174,7 @@ class AzureRMModuleBase(object):
     def automation_client(self):
         self.log('Getting automation client')
         if not self._automation_client:
-            self._automation_client = self.get_mgmt_svc_client(AutomationClient,
-                                                               base_url=self._cloud_environment.endpoints.resource_manager)
+            self._automation_client = self.get_mgmt_svc_client(AutomationClient)
         return self._automation_client
 
     @property
@@ -1211,7 +1186,6 @@ class AzureRMModuleBase(object):
         self.log('Getting lock client')
         if not self._lock_client:
             self._lock_client = self.get_mgmt_svc_client(ManagementLockClient,
-                                                         base_url=self._cloud_environment.endpoints.resource_manager,
                                                          api_version='2016-09-01')
         return self._lock_client
 

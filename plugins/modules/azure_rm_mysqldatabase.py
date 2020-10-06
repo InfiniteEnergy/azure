@@ -168,8 +168,7 @@ class AzureRMMySqlDatabase(AzureRMModuleBase):
         old_response = None
         response = None
 
-        self.mgmt_client = self.get_mgmt_svc_client(MySQLManagementClient,
-                                                    base_url=self._cloud_environment.endpoints.resource_manager)
+        self.mgmt_client = self.get_mgmt_svc_client(MySQLManagementClient)
 
         resource_group = self.get_resource_group(self.resource_group)
 
